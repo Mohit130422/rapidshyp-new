@@ -1,0 +1,150 @@
+@import "tailwindcss";
+
+/* ============================================================
+   RapidShyp Design System — Tailwind v4 theme tokens
+   ============================================================ */
+@theme {
+  /* Brand purple scale (deep aubergine -> bright violet) */
+  --color-brand-50: #f5f0fa;
+  --color-brand-100: #ece0f5;
+  --color-brand-200: #d8c2ea;
+  --color-brand-300: #bb95d8;
+  --color-brand-400: #9b63c2;
+  --color-brand-500: #7c3aad;
+  --color-brand-600: #61218c;
+  --color-brand-700: #4d1670;
+  --color-brand-800: #3E1A51;
+  --color-brand-900: #2c0a42;
+  --color-brand-950: #1d0530;
+
+  /* Accent violet (numbers, highlights) */
+  --color-violet-accent: #8b5cf6;
+
+  /* Warm accent (gradients, amber buttons) */
+  --color-amber-accent: #f5c518;
+  --color-orange-accent: #f97316;
+
+  /* Neutrals */
+  --color-ink: #000000;
+  --color-ink-soft: #4b4458;
+  --color-muted: #837e8e;
+  --color-surface: #ffffff;
+  --color-surface-muted: #f6f5f8;
+  --color-line: #ece9f1;
+
+  /* Typography (wired to next/font in layout.js) */
+  --font-display: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
+  --font-body: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+
+  /* Radii */
+  --radius-card: 1.25rem;
+  --radius-pill: 999px;
+
+  /* Shadows */
+  --shadow-soft: 0 12px 40px -12px rgba(60, 15, 89, 0.18);
+  --shadow-card: 0 18px 50px -20px rgba(60, 15, 89, 0.25);
+}
+
+/* ============================================================
+   Base
+   ============================================================ */
+* {
+  border-color: var(--color-line);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-surface);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: var(--font-inter);
+  /* letter-spacing: 0.25rem; */
+}
+
+/* ============================================================
+   Reusable utility patterns
+   ============================================================ */
+.container-x {
+  width: 100%;
+  max-width: 1200px;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+}
+
+@media (min-width: 768px) {
+  .container-x { padding-inline: 2rem; }
+}
+
+/* Signature gradient: purple -> orange */
+.gradient-brand {
+  background-image: linear-gradient(135deg, #61218c 0%, #8b5cf6 45%, #f97316 100%);
+}
+
+.gradient-brand-soft {
+  background-image: linear-gradient(135deg, rgba(124, 58, 173, 0.12), rgba(249, 115, 22, 0.12));
+}
+
+.text-gradient-brand {
+  background-image: linear-gradient(120deg, #61218c, #8b5cf6 60%, #f97316);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Reveal animation on scroll */
+@keyframes reveal-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.reveal {
+  animation: reveal-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes float-y {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.float-y { animation: float-y 5s ease-in-out infinite; }
+
+@keyframes spin-slow {
+  to { transform: rotate(360deg); }
+}
+.spin-slow { animation: spin-slow 28s linear infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .float-y, .spin-slow { animation: none; }
+  html { scroll-behavior: auto; }
+}
+
+/* Infinite right-to-left marquee (track holds two identical copies).
+   Plain classes so nothing in Tailwind's cascade can override them. */
+@keyframes marquee-x {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.marquee-track {
+  animation: marquee-x 60s linear infinite;
+  will-change: transform;
+}
+.marquee-mask:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .float-y, .spin-slow, .marquee-track { animation: none; }
+  html { scroll-behavior: auto; }
+}
+
+/* Hide scrollbar for horizontal scroll rows */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
